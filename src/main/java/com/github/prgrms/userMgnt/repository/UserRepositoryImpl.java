@@ -1,5 +1,6 @@
 package com.github.prgrms.userMgnt.repository;
 
+import com.github.prgrms.userMgnt.model.Email;
 import com.github.prgrms.userMgnt.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,10 +26,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM users", mapper);
     }
 
-//    static RowMapper<User> mapper = (rs, i) -> new User.Builder()
-//            .seq(rs.getLong("seq"));
-
+    private final static RowMapper<User> mapper = (rs, i) -> User.builder()
+            .seq(rs.getLong("SEQ"))
+            .email(new Email(rs.getString("EMAIL")))
+            .passwd(rs.getString("PASSWD"))
+            .login_count(rs.getInt("LOGIN_COUNT"))
+            .last_login_at(rs.getTimestamp("LAST_LOGIN_AT").toLocalDateTime())
+            .create_at(rs.getTimestamp("CREATE_AT").toLocalDateTime())
+            .build();
 }
