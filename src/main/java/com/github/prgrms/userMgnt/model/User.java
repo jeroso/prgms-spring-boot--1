@@ -10,25 +10,13 @@ public class User {
     private LocalDateTime last_login_at;
     private LocalDateTime create_at;
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    private User(Builder builder) {
+    public User(Builder builder) {
         this.seq = builder.seq;
         this.email = builder.email;
         this.passwd = builder.passwd;
         this.login_count = builder.login_count;
         this.last_login_at = builder.last_login_at;
         this.create_at = builder.create_at;
-    }
-      public User(Long seq, Email email, String passwd, int login_count, LocalDateTime last_login_at, LocalDateTime create_at) {
-        this.seq = seq;
-        this.email = email;
-        this.passwd = passwd;
-        this.login_count = login_count;
-        this.last_login_at = last_login_at;
-        this.create_at = create_at;
     }
 
     public Long getSeq() {
@@ -55,7 +43,11 @@ public class User {
         return create_at;
     }
 
-    public static class Builder {
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder{
         private Long seq;
         private Email email;
         private String passwd;
@@ -67,9 +59,29 @@ public class User {
             this.seq = seq;
             return this;
         }
-        public User build(){
+        public Builder email(Email email) {
+            this.email = email;
+            return this;
+        }
+        public Builder passwd(String passwd) {
+            this.passwd = passwd;
+            return this;
+        }
+        public Builder login_count(int login_count) {
+            this.login_count = login_count;
+            return this;
+        }
+        public Builder last_login_at(LocalDateTime last_login_at) {
+            this.last_login_at = last_login_at;
+            return this;
+        }
+        public Builder create_at(LocalDateTime create_at) {
+            this.create_at = create_at;
+            return this;
+        }
+
+        public User build() {
             return new User(this);
         }
     }
-
 }

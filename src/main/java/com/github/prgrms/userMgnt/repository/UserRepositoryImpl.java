@@ -1,11 +1,17 @@
 package com.github.prgrms.userMgnt.repository;
 
+import com.github.prgrms.userMgnt.common.Utils;
+import com.github.prgrms.userMgnt.model.Email;
 import com.github.prgrms.userMgnt.model.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -13,9 +19,14 @@ public class UserRepositoryImpl implements UserRepository {
     public UserRepositoryImpl(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
     @Override
-    public User findById(Long userId) {
-        jdbcTemplate.queryForObject("SELECT * FROM users WHERE seq = ?", new Object[]{userId}, mapper);
-        return null;
+    public Optional<User> findById(Long userId) {
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(
+                    "SELECT SEQ, EMAIL, PASSWD, LOGIN_COUNT, LAST_LOGIN_AT, CREATE_AT FROM USERS WHERE SEQ = ?", mapper, userId
+            ));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -28,7 +39,12 @@ public class UserRepositoryImpl implements UserRepository {
         return null;
     }
 
-//    static RowMapper<User> mapper = (rs, i) -> new User.Builder()
-//            .seq(rs.getLong("seq"));
-
+    private final static RowMapper<User> mapper = (rs, i) -> User.builder()
+            .seq(rs.getLong("SEQ"))
+            .email(new Email(rs.getString("EMAIL")))
+            .passwd(rs.getString("PASSWD"))
+            .login_count(rs.getInt("LOGIN_COUNT"))
+            .last_login_at(Utils.convertTime(rs.getTimestamp("LAST_LOGIN_AT")))
+            .create_at(Utils.convertTime(rs.getTimestamp("CREATE_AT")))
+            .build();
 }

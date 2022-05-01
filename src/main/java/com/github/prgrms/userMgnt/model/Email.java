@@ -12,6 +12,10 @@ public class Email {
             throw new IllegalStateException("wrong Email");
     }
 
+    public String getEmailAddr() {
+        return emailAddr;
+    }
+
     private boolean checkLength(String emailAddr) {
         return 5 < emailAddr.length() && emailAddr.length() <= 50;
     }

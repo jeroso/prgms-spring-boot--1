@@ -1,4 +1,4 @@
-package com.github.prgrms.userMgnt.dto;
+package com.github.prgrms.userMgnt.controller.dto;
 
 public class JoinRequestDTO {
     private String principal;
