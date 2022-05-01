@@ -11,13 +11,10 @@ public class User {
     private LocalDateTime last_login_at;
     private LocalDateTime create_at;
 
-<<<<<<< HEAD
-=======
     public static Builder builder() {
         return new Builder();
     }
 
->>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af
     public User(Builder builder) {
         this.seq = builder.seq;
         this.email = builder.email;
@@ -49,10 +46,6 @@ public class User {
 
     public LocalDateTime getCreate_at() {
         return create_at;
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder{
@@ -87,17 +80,9 @@ public class User {
             this.create_at = create_at;
             return this;
         }
-<<<<<<< HEAD
 
-        public User build() {
-            return new User(this);
-        }
-    }
-}
-=======
         public User build(){
             return new User(this);
         }
     }
 }
->>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af
