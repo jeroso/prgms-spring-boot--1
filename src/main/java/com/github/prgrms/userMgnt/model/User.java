@@ -1,7 +1,8 @@
 package com.github.prgrms.userMgnt.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.regex.Pattern;
+
 public class User {
     private final Long seq;
     private final Email email;
@@ -10,6 +11,13 @@ public class User {
     private LocalDateTime last_login_at;
     private LocalDateTime create_at;
 
+<<<<<<< HEAD
+=======
+    public static Builder builder() {
+        return new Builder();
+    }
+
+>>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af
     public User(Builder builder) {
         this.seq = builder.seq;
         this.email = builder.email;
@@ -79,9 +87,17 @@ public class User {
             this.create_at = create_at;
             return this;
         }
+<<<<<<< HEAD
 
         public User build() {
             return new User(this);
         }
     }
 }
+=======
+        public User build(){
+            return new User(this);
+        }
+    }
+}
+>>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af

@@ -1,6 +1,9 @@
 package com.github.prgrms.userMgnt.repository;
 
+<<<<<<< HEAD
 import com.github.prgrms.userMgnt.common.Utils;
+=======
+>>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af
 import com.github.prgrms.userMgnt.model.Email;
 import com.github.prgrms.userMgnt.model.User;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -36,7 +39,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM users", mapper);
     }
 
     private final static RowMapper<User> mapper = (rs, i) -> User.builder()
@@ -44,7 +47,12 @@ public class UserRepositoryImpl implements UserRepository {
             .email(new Email(rs.getString("EMAIL")))
             .passwd(rs.getString("PASSWD"))
             .login_count(rs.getInt("LOGIN_COUNT"))
+<<<<<<< HEAD
             .last_login_at(Utils.convertTime(rs.getTimestamp("LAST_LOGIN_AT")))
             .create_at(Utils.convertTime(rs.getTimestamp("CREATE_AT")))
+=======
+            .last_login_at(rs.getTimestamp("LAST_LOGIN_AT").toLocalDateTime())
+            .create_at(rs.getTimestamp("CREATE_AT").toLocalDateTime())
+>>>>>>> 1e5a2a0ff2faad01ebe99c1460de3094980ff2af
             .build();
 }
